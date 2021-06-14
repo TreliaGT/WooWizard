@@ -51,5 +51,18 @@
                     </div>
                 </div>
             </div>
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css">
+    <script>
+	    var botmanWidget = {
+	        aboutText: "Webby",
+	        introMessage: "Hi, I'm Webby the Web Wizard",
+            title: 'Talk to Webby',
+            mainColor: '#8c2333',
+            bubbleBackground: '#8c2333', 
+            aboutLink: 'https://www.webwizards.com.au/',
+	    };
+    </script>
+  
+    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
     </body>
 </html>

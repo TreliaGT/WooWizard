@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ConnectController;
+use App\Http\Controllers\BotManController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,3 +25,7 @@ Route::get('/products',[ProductController::class, 'index']);
 
 
 Route::post('/connection',[ConnectController::class, 'connection']);
+
+
+    
+Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
