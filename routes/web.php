@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ConnectController;
 use App\Http\Controllers\BotManController;
+use App\Http\Controllers\CategoriesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +22,8 @@ Route::get('/', function () {
 
 
 Route::resource('/products', ProductController::class);
+
+Route::get('/cate' , [CategoriesController::class, 'index']);
 
 
 

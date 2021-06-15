@@ -1,6 +1,7 @@
 @extends('layout.app')
 @section('content')
 		<a href="/products/create"> Create New Product</a>
+		<a href="/cate"> View Categories</a>
         @if(count($products) > 0)
 		<div class="container">
 			<div>

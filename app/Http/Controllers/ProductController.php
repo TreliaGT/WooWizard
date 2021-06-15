@@ -33,9 +33,18 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('products.create');
+    public function create(Request $request)
+    {   
+        $woocommerce = new Client(
+            $request->session()->get('woo_host'), 
+            $request->session()->get('woo_key'), 
+            $request->session()->get('woo_secret'),
+            [
+                'wp_api' => true, 'version' => 'wc/v3',
+            ]
+        );
+        $cats = $woocommerce->get("products/categories", ['per_page'=>50]);
+        return view('products.create')->with('cats', $cats);
     }
 
     public function store(Request $request)
@@ -60,21 +69,23 @@ class ProductController extends Controller
         $on_sale= $request->input('on_sale');
         $sale_price= $request->input('sale_price');
         $stock_statuts= $request->input('stock_status');
+        $idc = $request->input('categories');
+        $shdesc = $request->input('shortdescription');
+        $type = $request->input('type');
         if($on_sale==false) $sale_price=''; 
 
         $data = [
             'name' => $name,
             'regular_price' => $price,
+            'short_description' => $shdesc,
             'description' => $description,
             'on_sale' => $on_sale,
             'sale_price' => $sale_price,
             'stock_status' => $stock_statuts,
-            'categories' => [['id' => $idc]]
-            /*'images' => [[
-                'src' => $request->file('image')->getRealPath(),
-                'name' => $request->file('image')->getClientOriginalName(),
-                'alt' => substr($request->file('image')->getClientOriginalName(),2,2) 
-            ]] */
+            'categories' => [['id' => $idc]] ,
+            'images' => [[
+                'src' => $request->input('image'),
+            ],]
             ];
         
         $woocommerce->post('products', $data);

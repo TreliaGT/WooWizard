@@ -1,52 +1,64 @@
 @extends('layout.app')
 
 @section('content')
-   <h1 style="color:white;font-weight:bold;">Create Product :</h1>
-   <div style="background-color: rgba(255,255,255, 0.5);border-radius: 4px;padding: 10px 20px;margin-bottom:5px;">
-     
+  
+   <div class="container">
+   <h1 >Create Product :</h1>
    
-    <form action="/products/create" method="POST"  enctype='multipart/form-data' files='true'>
-    {!! csrf_field() !!}
+    <form action="/products" method="POST"  enctype='multipart/form-data' files='true'>
+     @csrf
         <div class="form-group">
-                <label style="font-weight:bold;">Name :</label>
+                <label class="form-label">Name :</label>
                 <input name="name" class="form-control" type="text"  placeholder="Name">
         </div>
          <div class="form-group">
-                <label style="font-weight:bold;">Price :</label>
+                <label class="form-label">Price :</label>
                 <input name="price" class="form-control" type="text"  placeholder="Price">
         </div>
         <div class="form-group">
-                <label style="font-weight:bold;">Description :</label>
+                <label class="form-label">Short Description :</label>
+                <textarea name="shortdescription">Short Description</textarea>
+        </div>
+        <div class="form-group">
+                <label class="form-label">Description :</label>
                 <textarea name="description">Description</textarea>
         </div>
         <div class="form-group">
-        <label style="font-weight:bold;">On Sale :</label>
+        <label class="form-label">Product Type :</label>
+           <select name="type">
+            <option value="simple">Single Product</option>
+            <option value="variable">Variable Product</option>
+           </select>
+        </div>
+        <div class="form-group">
+        <label class="form-label">On Sale :</label>
            <select name="on_sale">
             <option value="false">No</option>
             <option value="true">Yes</option>
            </select>
         </div>
         <div class="form-group">
-            <label style="font-weight:bold;">Sale Price :</label>
+            <label class="form-label">Sale Price :</label>
             <input name="sale_price" class="form-control" type="text"  placeholder="Sale Price">
         </div>
         <div class="form-group">
-        <label style="font-weight:bold;">Stock Status :</label>
+        <label class="form-label">Stock Status :</label>
            <select name="stock_status">
            <option value="instock">instock</option>
            <option value="outofstock">outofstock</option>
            </select>
         </div>
         <div class="form-group">
-        <label style="font-weight:bold;">catergoies :</label>
+        <label class="form-label">Categories :</label>
            <select name="categories">
-            <option value="True">instock</option>
-            <option value="False">outofstock</option>
+            @foreach($cats as $cat)
+               <option value="{{$cat->id}}">{{$cat->name}}</option>
+               @endforeach
            </select>
         </div>
         <div class="form-group">
-            <label style="font-weight:bold;">Feature Image :</label>
-            <input type="file" name="image"/>
+            <label class="form-label">Feature Image :</label>
+            <input type="URL" name="image" placeholder="Image"/>
         </div>
         <button type=submit>Add</button>
     </form>
